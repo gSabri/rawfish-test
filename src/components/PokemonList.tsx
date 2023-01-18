@@ -19,11 +19,11 @@ export const PokemonList: React.FC = () => {
             const {data: response} = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`)
             const pokemonList : Array<RequestData> = response.results
             const completeList : Array<Pokemon> = []
-            pokemonList.forEach((item : RequestData) => {
-                const {completePokemon} = await fetchPokemonData(item.url)
+            for (const item of pokemonList) {
+                const completePokemon : Pokemon = await fetchPokemonData(item.url)
                 completeList.push(completePokemon)
-                }
-            )
+            }
+            
             setList(list => [...completeList] )
         } catch (error) {
             console.error(error);
@@ -31,14 +31,14 @@ export const PokemonList: React.FC = () => {
         setLoading(false);
     }
 
-    const fetchPokemonData = async (url: string): Promise<Pokemon> => {
+    const fetchPokemonData = async (url: string) : Promise<Pokemon> => {
         try {
             const {data: response} = await axios.get(url)
-           console.log(response)
+            return response
         } catch (error) {
             console.error(error);
-        }
-        return response
+            throw (error)
+        }        
     }
 
     useEffect(() => { 
