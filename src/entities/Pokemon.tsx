@@ -7,4 +7,7 @@ export interface Pokemon {
     is_default: boolean
     order: number
     weight: number
+    sprites: {
+        front_default: string
+    }
 }
