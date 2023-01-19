@@ -1,17 +1,18 @@
 import React, { useCallback } from "react"
-import { useNavigate } from "react-router-dom";
-import { Pokemon } from "../entities/Pokemon"
+import { useNavigate } from "react-router-dom"
 
 interface PokemonItemProps {
     key: number,
-    pokemon: Pokemon
+    id: number,
+    name: string,
+    img: string
 }
 
-export const PokemonItem: React.FC<PokemonItemProps> = ({pokemon}) => {
+export const PokemonItem: React.FC<PokemonItemProps> = ({id, name, img}) => {
     const navigate = useNavigate();
 
     const navigateDetail = useCallback(() => {
-        navigate(`pokemon/${pokemon.id}`);
+        navigate(`pokemon/${id}`);
     }, [])
 
     return (
@@ -20,9 +21,9 @@ export const PokemonItem: React.FC<PokemonItemProps> = ({pokemon}) => {
             hover:cursor-pointer hover:scale-110 ease-in duration-200
             hover:border-red-800 hover:bg-red-300 hover:text-red-800"
             onClick={navigateDetail}>
-            <span className="font-bold text-md md:text-lg">#{pokemon.id}</span>            
-            <span className="flex-1 font-bold text-center capitalize truncate text-lg md:text-2xl">{pokemon.name}</span>
-            <img src={pokemon.sprites.front_default} />
+            <span className="font-bold text-md md:text-xl">#{id}</span>            
+            <span className="flex-1 font-bold text-center capitalize truncate text-lg md:text-2xl">{name}</span>
+            <img src={img} />
         </div>
     )
 }

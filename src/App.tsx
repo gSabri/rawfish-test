@@ -1,11 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
-import {HomePage} from "./pages/HomePage";
-import { PokemonDetail } from './pages/PokemonDetail';
+import { HomePage } from "./pages/HomePage";
+import { PokemonPage } from './pages/PokemonPage';
 
 const routeComponents = [
-	{ path: '/pokemon/:id', component: <PokemonDetail /> },
+	{ path: '/pokemon/:id', component: <PokemonPage /> },
 	{ path: '/', component: <HomePage /> }
 ];
 

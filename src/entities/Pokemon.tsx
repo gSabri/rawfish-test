@@ -1,7 +1,6 @@
 export interface Pokemon {
     id: number
     name: string
-    url: string
     base_experience: number
     height: number
     is_default: boolean
@@ -9,5 +8,19 @@ export interface Pokemon {
     weight: number
     sprites: {
         front_default: string
+    }
+    abilities: Array<Ability>
+    moves: Array<Move>
+}
+
+export interface Ability {
+    ability: {
+        name: string
+    }
+}
+
+export interface Move {
+    move: {
+        name: string
     }
 }

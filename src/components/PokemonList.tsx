@@ -53,7 +53,7 @@ export const PokemonList: React.FC = () => {
     const pokemonItems = useMemo (() => {
         return (
             list &&
-            list.map((p : Pokemon, index) => <PokemonItem key={index} pokemon={p}/>) 
+            list.map((p : Pokemon, index) => <PokemonItem key={index} id={p.id} name={p.name} img={p.sprites.front_default}/>) 
         )
     }, [list])
 
@@ -87,7 +87,7 @@ export const PokemonList: React.FC = () => {
         <div className="max-w-[75%] md:max-w-[50%] mx-auto">
             { pokemonItems }
             { next && (
-                <div role="status" className="w-full animate-pulse mb-4" ref={lastItemRef}>
+                <div role="status" className="w-full animate-pulse" ref={lastItemRef}>
                     <div className="w-full bg-gray-300 rounded-xl p-6 border border-gray-400"> Loading... </div>              
                 </div>)
             }
