@@ -68,7 +68,7 @@ export const PokemonList: React.FC = () => {
 		const observer = new IntersectionObserver(intersectionCallback, 
 			{
 				root: null,
-				threshold:1
+				threshold:0.75
 			}
 		);
 		const lastItem = lastItemRef.current;

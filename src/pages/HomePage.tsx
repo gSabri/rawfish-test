@@ -6,7 +6,7 @@ export const HomePage = (): JSX.Element => {
 
     return (
         <>
-            <Header/>
+            <Header showBack={false}/>
             <div className="pt-24">
                 <PokemonList/>
             </div>
