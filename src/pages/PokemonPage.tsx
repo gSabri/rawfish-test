@@ -1,39 +1,28 @@
-import React, {useEffect, useState} from "react"
-import axios from "axios"
+import React from "react"
 import { useParams } from "react-router-dom"
 import { Header } from "../components/Header"
 import { PokemonDetail } from "../components/PokemonDetail"
 import { Pokemon } from "../entities/Pokemon"
+import type { RootState } from '../store'
+import { useSelector } from 'react-redux'
 
 export const PokemonPage = (): JSX.Element => {
 
-    // retrieve selected pokemon from store
+	const { id } = useParams<{id: string}>()
+	const listState = useSelector((state: RootState) => state.list)
+	const list = listState.data
 
-    const { id } = useParams<{id: string}>()
-    const [pokemon, setPokemon] = useState<Pokemon>()
+	// retrieve selected pokemon from store
+	const selectedPokemon = list.find((p: Pokemon) => p.id === Number(id))
 
-    useEffect(() => {
-        const fetchPokemon = async () => {   
-            try {
-                const {data: response} = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)              
-                setPokemon(response)         
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        fetchPokemon()
-    }, [id])
-
-
-    return (
-        <>
-            <Header showBack={true}/>
-            <div className="pt-28 pb-8">
-                { pokemon &&
-                    <PokemonDetail pokemon={pokemon}/>
-                }
-            </div>
-        </>
-    )
+	return (
+		<>
+			<Header showBack={true}/>
+				<div className="pt-28 pb-8">
+					{ selectedPokemon &&
+						<PokemonDetail pokemon={selectedPokemon}/>
+					}
+				</div>
+		</>
+	)
 }
