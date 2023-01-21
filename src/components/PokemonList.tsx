@@ -22,18 +22,21 @@ export const PokemonList: React.FC = () => {
   const lastCursor = listState.lastCursor
   const dispatch = useDispatch()
   
-  useEffect(() => {        
-    fetchData()
+  useEffect(() => {
+    setLoading(true)       
+    fetchData(false)
   }, [])
 
-  const fetchData = useCallback(async () => {   
-    try {
-      setLoading(true)
-      // if list in store contains lastcursor+1, data already loaded
-      if (list.find((el : Pokemon) => el.id === lastCursor+1)) {
-        setLoading(false)
+  const fetchData = useCallback(async (intersectionCall : boolean) => {   
+    try {      
+      if (!intersectionCall && list.length) {
         return
       }
+      // if list in store contains lastcursor+1, data already loaded
+      if (list.find((el : Pokemon) => el.id === lastCursor+1)) {
+        return
+      }
+    
       // else load data and save in store
       const {data: response} = await axios.get(`https://pokeapi.co/api/v2/pokemon?limit=${pageItems}&offset=${lastCursor}`)
 
@@ -89,7 +92,8 @@ export const PokemonList: React.FC = () => {
   const intersectionCallback = useCallback((entries: Array<IntersectionObserverEntry>) => {
     const [entry] = entries
     if (entry.isIntersecting && !loading && next) {
-      fetchData()
+      setLoading(true)
+      fetchData(true)
     }
   }, [loading, list, next])
 
