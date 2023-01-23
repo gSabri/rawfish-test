@@ -1,28 +1,28 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { HomePage } from "./pages/HomePage";
-import { PokemonPage } from './pages/PokemonPage';
+import React from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { HomePage } from "./pages/HomePage"
+import { PokemonPage } from './pages/PokemonPage'
 
 const routeComponents = [
 	{ path: '/pokemon/:id', component: <PokemonPage /> },
 	{ path: '/', component: <HomePage /> }
-];
+]
 
 function App() {
 
-  const routes = routeComponents.map(({ path, component }, key) => (
-    <Route key={key} path={path} element={component} />
+  const routes = routeComponents.map(({ path, component }, index)=> (
+    <Route key={index} path={path} element={component} />
   ))
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          {routes}
+          { routes }
         </Routes>
       </BrowserRouter>
     </div>
   );
 }
 
-export default App;
+export default App
